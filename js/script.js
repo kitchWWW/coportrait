@@ -157,7 +157,21 @@ function drawImage() {
   }
 }
 
+
+async function autoDownloadCanvas() {
+  console.log("running auto download")
+  let link = document.getElementById('allthing');
+  for (var i = 0; i < 10; i++) {
+    var canvas = document.getElementById("can" + (i + 1))
+    link.setAttribute('download', 'coportrait' + (i + 1) + '.png');
+    link.setAttribute('href', canvas.toDataURL("image/png"));
+    link.click();
+  }
+}
+
 function doDownload() {
+  console.log("doing first download")
+  autoDownloadCanvas()
   // do the actual downloading. idk how to do it.
   return false
 }
@@ -180,16 +194,13 @@ navigator.mediaDevices.getUserMedia(constraints).then(handleSuccess).catch(handl
 
 
 function doTest() {
-  console.log("hello?")
+  console.log("running test!")
   currentPhotoIndex = testing
-
   canvas = cans[currentPhotoIndex]
   canvas.width = video.videoWidth;
   canvas.height = video.videoHeight;
   ctx = canvas.getContext('2d')
-
-  eval("drawPhoto" + (testing + 1) + "()"); // TODO figure out how to exec js of testing index + 1
-
+  eval("drawPhoto" + (testing + 1) + "()");
   displayCurrentCanvas()
 }
 
